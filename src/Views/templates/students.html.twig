@@ -1,0 +1,34 @@
+{% include 'base/header.html.twig' %}
+
+    <main>
+        <div class="container">
+            <h1>Students</h1>
+            <p><a href="index.php?controller=students&action=new&id={{ student.id }}">Add a new student</a></p>
+            <table class="table table-bordered">
+                <tr>
+                    <th>#</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Department</th>
+                    <th>University</th>
+                    <th>Actions</th>
+                </tr>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.id }}</td>
+                        <td>{{ student.firstName }}</td>
+                        <td>{{ student.lastName }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.phone }}</td>
+                        <td>{{ student.departmentName }}</td>
+                        <td>{{ student.universityName }}</td>
+                        <td><a href="index.php?controller=students&action=edit&id={{ student.id }}">edit</a> <a href="index.php?controller=students&action=delete&id={{ student.id }}">delete</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </main>
+
+{% include 'base/footer.html.twig' %}
