@@ -6,12 +6,25 @@ use Repositories\UniversitiesRepository;
 
 class UniversitiesController
 {
+    /**
+     * @var UniversitiesRepository
+     */
     private $repository;
 
+    /**
+     * @var \Twig_Loader_Filesystem
+     */
     private $loader;
 
+    /**
+     * @var \Twig_Environment
+     */
     private $twig;
 
+    /**
+     * UniversitiesController constructor.
+     * @param array $connector
+     */
     public function __construct($connector)
     {
         $this->repository = new UniversitiesRepository($connector);
@@ -21,6 +34,9 @@ class UniversitiesController
         ));
     }
 
+    /**
+     * @return string
+     */
     public function indexAction()
     {
         $universitiesData = $this->repository->findAll();
@@ -28,6 +44,9 @@ class UniversitiesController
         return $this->twig->render('universities.html.twig', ['universities' => $universitiesData]);
     }
 
+    /**
+     * @return string
+     */
     public function newAction()
     {
         if (isset($_POST['name'])) {
@@ -49,6 +68,9 @@ class UniversitiesController
         );
     }
 
+    /**
+     * @return string
+     */
     public function editAction()
     {
         if (isset($_POST['name'])) {
@@ -72,6 +94,9 @@ class UniversitiesController
         );
     }
 
+    /**
+     * @return string
+     */
     public function deleteAction()
     {
         if (isset($_POST['id'])) {

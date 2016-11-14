@@ -6,12 +6,25 @@ use Repositories\DepartmentsRepository;
 
 class DepartmentsController
 {
+    /**
+     * @var DepartmentsRepository
+     */
     private $repository;
 
+    /**
+     * @var \Twig_Loader_Filesystem
+     */
     private $loader;
 
+    /**
+     * @var \Twig_Environment
+     */
     private $twig;
 
+    /**
+     * DepartmentsController constructor.
+     * @param array $connector
+     */
     public function __construct($connector)
     {
         $this->repository = new DepartmentsRepository($connector);
@@ -21,6 +34,9 @@ class DepartmentsController
         ));
     }
 
+    /**
+     * @return string
+     */
     public function indexAction()
     {
         $departmentsData = $this->repository->findAll();
@@ -28,6 +44,9 @@ class DepartmentsController
         return $this->twig->render('departments.html.twig', ['departments' => $departmentsData]);
     }
 
+    /**
+     * @return string
+     */
     public function newAction()
     {
         if (isset($_POST['name'])) {
@@ -45,6 +64,9 @@ class DepartmentsController
         );
     }
 
+    /**
+     * @return string
+     */
     public function editAction()
     {
         if (isset($_POST['name'])) {
@@ -64,6 +86,9 @@ class DepartmentsController
         );
     }
 
+    /**
+     * @return string
+     */
     public function deleteAction()
     {
         if (isset($_POST['id'])) {

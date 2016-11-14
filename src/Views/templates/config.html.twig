@@ -20,8 +20,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center" style="padding-top: 10%">
-                    <p class="align-center">Please click button to create DB and fill data.</p>
-                    <a href="index.php?controller=config&action=create" class="btn-primary align-center" style="padding: 10px 20px">Create</a>
+                    {% if statement %}
+                        <a href="index.php?controller=students&action=index" class="btn-primary align-center" style="padding: 10px 20px">Start</a>
+                    {% else %}
+                        <p class="align-center">Please click button to create/check DB and data.</p>
+                        <a href="index.php?controller=config&action=create" class="btn-primary align-center" style="padding: 10px 20px">Create/Check</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

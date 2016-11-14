@@ -4,6 +4,9 @@ namespace Repositories;
 
 class HomeworksRepository implements RepositoryInterface
 {
+    /**
+     * @var array
+     */
     private $connector;
 
     /**
@@ -16,6 +19,9 @@ class HomeworksRepository implements RepositoryInterface
         $this->connector = $connector;
     }
 
+    /**
+     * @return array
+     */
     public function findAll()
     {
         $statement = $this->connector->getPdo()->prepare('
@@ -26,6 +32,10 @@ class HomeworksRepository implements RepositoryInterface
         return $this->fetchHomeworkData($statement);
     }
 
+    /**
+     * @param $statement
+     * @return array
+     */
     private function fetchHomeworkData($statement)
     {
         $results = [];
@@ -40,6 +50,10 @@ class HomeworksRepository implements RepositoryInterface
         return $results;
     }
 
+    /**
+     * @param array $homeworkData
+     * @return mixed
+     */
     public function insert(array $homeworkData)
     {
         $statement = $this->connector->getPdo()->prepare('INSERT INTO home_works (name) VALUES(:name)');
@@ -48,6 +62,10 @@ class HomeworksRepository implements RepositoryInterface
         return $statement->execute();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function find($id)
     {
         $statement = $this->connector->getPdo()->prepare('SELECT * FROM home_works WHERE id = :id LIMIT 1');
@@ -59,6 +77,10 @@ class HomeworksRepository implements RepositoryInterface
 
     }
 
+    /**
+     * @param array $homeworkData
+     * @return mixed
+     */
     public function update(array $homeworkData)
     {
         $statement = $this->connector->getPdo()->prepare("UPDATE home_works SET name = :name WHERE id = :id");
@@ -69,6 +91,10 @@ class HomeworksRepository implements RepositoryInterface
         return $statement->execute();
     }
 
+    /**
+     * @param array $homeworkData
+     * @return mixed
+     */
     public function remove(array $homeworkData)
     {
         $statement = $this->connector->getPdo()->prepare("DELETE FROM home_works WHERE id = :id");

@@ -6,12 +6,25 @@ use Repositories\StudentsRepository;
 
 class StudentsController
 {
+    /**
+     * @var StudentsRepository
+     */
     private $repository;
 
+    /**
+     * @var \Twig_Loader_Filesystem
+     */
     private $loader;
 
+    /**
+     * @var \Twig_Environment
+     */
     private $twig;
 
+    /**
+     * StudentsController constructor.
+     * @param array $connector
+     */
     public function __construct($connector)
     {
         $this->repository = new StudentsRepository($connector);
@@ -21,6 +34,9 @@ class StudentsController
         ));
     }
 
+    /**
+     * @return string
+     */
     public function indexAction()
     {
         $studentsData = $this->repository->findAll();
@@ -28,6 +44,9 @@ class StudentsController
         return $this->twig->render('students.html.twig', ['students' => $studentsData]);
     }
 
+    /**
+     * @return string
+     */
     public function newAction()
     {
         if (isset($_POST['first_name'])) {
@@ -49,6 +68,9 @@ class StudentsController
         );
     }
 
+    /**
+     * @return string
+     */
     public function editAction()
     {
         if (isset($_POST['first_name'])) {
@@ -72,6 +94,9 @@ class StudentsController
         );
     }
 
+    /**
+     * @return string
+     */
     public function deleteAction()
     {
         if (isset($_POST['id'])) {

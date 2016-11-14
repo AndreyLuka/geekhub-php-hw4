@@ -6,12 +6,25 @@ use Repositories\Connector;
 
 class ConfigController
 {
+    /**
+     * @var Connector
+     */
     private $connector;
 
+    /**
+     * @var \Twig_Loader_Filesystem
+     */
     private $loader;
 
+    /**
+     * @var \Twig_Environment
+     */
     private $twig;
 
+    /**
+     * ConfigController constructor.
+     * @param Connector $connector
+     */
     public function __construct(Connector $connector)
     {
         $this->connector = $connector;
@@ -21,11 +34,17 @@ class ConfigController
         ));
     }
 
+    /**
+     * @return string
+     */
     public function indexAction()
     {
         return $this->twig->render('config.html.twig');
     }
 
+    /**
+     * @return string
+     */
     public function createAction() {
         $statement = $this->connector->getPdo()->prepare('
             CREATE TABLE `departments` (
@@ -183,8 +202,7 @@ class ConfigController
         ');
         $statement->execute();
         if ($statement) {
-            $students = new StudentsController($this->connector);
-            return $students->indexAction();
+            return $this->twig->render('config.html.twig', ['statement' => $statement]);
         }
     }
 }

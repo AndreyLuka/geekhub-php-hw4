@@ -4,18 +4,24 @@ namespace Repositories;
 
 class DepartmentsRepository implements RepositoryInterface
 {
+    /**
+     * @var array
+     */
     private $connector;
 
     /**
      * DepartmentsRepository constructor.
      * Initialize the database connection with sql server via given credentials
-     * @param $connector
+     * @param array $connector
      */
     public function __construct($connector)
     {
         $this->connector = $connector;
     }
 
+    /**
+     * @return array
+     */
     public function findAll()
     {
         $statement = $this->connector->getPdo()->prepare('
@@ -27,6 +33,10 @@ class DepartmentsRepository implements RepositoryInterface
         return $this->fetchUniversityData($statement);
     }
 
+    /**
+     * @param $statement
+     * @return array
+     */
     private function fetchUniversityData($statement)
     {
         $results = [];
@@ -41,6 +51,10 @@ class DepartmentsRepository implements RepositoryInterface
         return $results;
     }
 
+    /**
+     * @param array $universityData
+     * @return mixed
+     */
     public function insert(array $universityData)
     {
         $statement = $this->connector->getPdo()->prepare('INSERT INTO departments (name) VALUES(:name)');
@@ -49,6 +63,10 @@ class DepartmentsRepository implements RepositoryInterface
         return $statement->execute();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function find($id)
     {
         $statement = $this->connector->getPdo()->prepare('SELECT * FROM departments WHERE id = :id LIMIT 1');
@@ -60,6 +78,10 @@ class DepartmentsRepository implements RepositoryInterface
 
     }
 
+    /**
+     * @param array $universityData
+     * @return mixed
+     */
     public function update(array $universityData)
     {
         $statement = $this->connector->getPdo()->prepare("UPDATE departments SET name = :name WHERE id = :id");
@@ -70,6 +92,10 @@ class DepartmentsRepository implements RepositoryInterface
         return $statement->execute();
     }
 
+    /**
+     * @param array $universityData
+     * @return mixed
+     */
     public function remove(array $universityData)
     {
         $statement = $this->connector->getPdo()->prepare("DELETE FROM departments WHERE id = :id");

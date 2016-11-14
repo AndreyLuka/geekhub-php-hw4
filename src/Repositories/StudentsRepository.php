@@ -4,6 +4,9 @@ namespace Repositories;
 
 class StudentsRepository implements RepositoryInterface
 {
+    /**
+     * @var array
+     */
     private $connector;
 
     /**
@@ -16,6 +19,9 @@ class StudentsRepository implements RepositoryInterface
         $this->connector = $connector;
     }
 
+    /**
+     * @return array
+     */
     public function findAll()
     {
         $statement = $this->connector->getPdo()->prepare('
@@ -29,6 +35,10 @@ class StudentsRepository implements RepositoryInterface
         return $this->fetchStudentData($statement);
     }
 
+    /**
+     * @param $statement
+     * @return array
+     */
     private function fetchStudentData($statement)
     {
         $results = [];
@@ -47,6 +57,10 @@ class StudentsRepository implements RepositoryInterface
         return $results;
     }
 
+    /**
+     * @param array $studentData
+     * @return mixed
+     */
     public function insert(array $studentData)
     {
         $statement = $this->connector->getPdo()->prepare('INSERT INTO students (first_name, last_name, email) VALUES(:firstName, :lastName, :email)');
@@ -57,6 +71,10 @@ class StudentsRepository implements RepositoryInterface
         return $statement->execute();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function find($id)
     {
         $statement = $this->connector->getPdo()->prepare('SELECT * FROM students WHERE id = :id LIMIT 1');
@@ -68,6 +86,10 @@ class StudentsRepository implements RepositoryInterface
 
     }
 
+    /**
+     * @param array $studentData
+     * @return mixed
+     */
     public function update(array $studentData)
     {
         $statement = $this->connector->getPdo()->prepare("UPDATE students SET first_name = :firstName, last_name = :lastName, email = :email WHERE id = :id");
@@ -80,6 +102,10 @@ class StudentsRepository implements RepositoryInterface
         return $statement->execute();
     }
 
+    /**
+     * @param array $studentData
+     * @return mixed
+     */
     public function remove(array $studentData)
     {
         $statement = $this->connector->getPdo()->prepare("DELETE FROM students WHERE id = :id");

@@ -6,12 +6,25 @@ use Repositories\HomeworksRepository;
 
 class HomeworksController
 {
+    /**
+     * @var HomeworksRepository
+     */
     private $repository;
 
+    /**
+     * @var \Twig_Loader_Filesystem
+     */
     private $loader;
 
+    /**
+     * @var \Twig_Environment
+     */
     private $twig;
 
+    /**
+     * HomeworksController constructor.
+     * @param array $connector
+     */
     public function __construct($connector)
     {
         $this->repository = new HomeworksRepository($connector);
@@ -21,6 +34,9 @@ class HomeworksController
         ));
     }
 
+    /**
+     * @return string
+     */
     public function indexAction()
     {
         $homeworksData = $this->repository->findAll();
@@ -28,6 +44,9 @@ class HomeworksController
         return $this->twig->render('homeworks.html.twig', ['homeworks' => $homeworksData]);
     }
 
+    /**
+     * @return string
+     */
     public function newAction()
     {
         if (isset($_POST['name'])) {
@@ -45,6 +64,9 @@ class HomeworksController
         );
     }
 
+    /**
+     * @return string
+     */
     public function editAction()
     {
         if (isset($_POST['name'])) {
@@ -64,6 +86,9 @@ class HomeworksController
         );
     }
 
+    /**
+     * @return string
+     */
     public function deleteAction()
     {
         if (isset($_POST['id'])) {

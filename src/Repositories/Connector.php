@@ -4,14 +4,17 @@ namespace Repositories;
 
 class Connector
 {
+    /**
+     * @var \PDO
+     */
     private $pdo;
 
     /**
      * StudentsRepository constructor.
      * Initialize the database connection with sql server via given credentials
-     * @param $dbname
-     * @param $user
-     * @param $pass
+     * @param string $dbname
+     * @param string $user
+     * @param string $pass
      */
     public function __construct($dbname, $user, $pass)
     {
@@ -22,6 +25,9 @@ class Connector
 
     }
 
+    /**
+     * @return \PDO
+     */
     public function getPdo()
     {
         return $this->pdo;
