@@ -1,0 +1,26 @@
+{% include 'base/header.html.twig' %}
+
+    <main>
+        <div class="container">
+            <h1>Homeworks</h1>
+            <p><a href="index.php?controller=homeworks&action=new&id={{ homework.id }}">Add a new homework</a></p>
+            <table class="table table-bordered">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Subject Name</th>
+                    <th>Actions</th>
+                </tr>
+                {% for homework in homeworks %}
+                    <tr>
+                        <td>{{ homework.id }}</td>
+                        <td>{{ homework.name }}</td>
+                        <td>{{ homework.subjectName }}</td>
+                        <td><a href="index.php?controller=homeworks&action=edit&id={{ homework.id }}">edit</a> <a href="index.php?controller=homeworks&action=delete&id={{ homework.id }}">delete</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </main>
+
+{% include 'base/footer.html.twig' %}
